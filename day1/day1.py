@@ -5,10 +5,10 @@ from collections import Counter
 def unzip(xs):
     return zip(*xs)
 
-def part1(pairs):
+def part1(pairs) -> int:
     return sum(map(lambda x: abs(x[1] - x[0]), zip(*map(sorted, unzip(pairs)))))
 
-def part2(pairs):
+def part2(pairs) -> int:
     xs, ys = unzip(pairs)
     counts = Counter(ys)
     return sum(x * (0 if x not in counts else counts.get(x)) for x in xs)
