@@ -1,0 +1,16 @@
+{
+  "tasks": {
+    "dev": "deno run --watch -R=. main.ts"
+  },
+  "imports": {
+    "@es-toolkit/es-toolkit": "jsr:@es-toolkit/es-toolkit@^1.29.0",
+    "@std/assert": "jsr:@std/assert@1"
+  },
+  "fmt": {
+    "useTabs": false,
+    "lineWidth": 100,
+    "indentWidth": 2,
+    "semiColons": false,
+    "singleQuote": true
+  }
+}

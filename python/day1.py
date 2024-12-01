@@ -13,7 +13,7 @@ def part2(pairs) -> int:
     counts = Counter(ys)
     return sum(x * (0 if x not in counts else counts.get(x)) for x in xs)
 
-with open('input', 'r') as f:
+with open('../txt/day1', 'r') as f:
     lines = f.read().splitlines()
     pairs = [tuple(map(int, re.findall(r'\d+', x))) for x in lines]
     part1 = part1(pairs)
