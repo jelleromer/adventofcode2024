@@ -1,4 +1,4 @@
-import { countBy, sum, unzip, zipWith } from '@es-toolkit/es-toolkit'
+import { countBy, identity, sum, unzip, zipWith } from '@es-toolkit/es-toolkit'
 import { findAll, print } from './utils.ts'
 
 function part1(pairs: [number, number][]): number {
@@ -9,7 +9,7 @@ function part1(pairs: [number, number][]): number {
 
 function part2(pairs: [number, number][]) {
   const [xs, ys] = unzip(pairs)
-  const counts = countBy(ys, (x) => x)
+  const counts = countBy(ys, identity)
   return sum(xs.map((x) => x * (counts[x] ?? 0)))
 }
 
