@@ -1,45 +1,47 @@
-import { countBy, identity, range } from '@es-toolkit/es-toolkit'
+import { identity, range } from '@es-toolkit/es-toolkit'
 import { findAll, print } from './utils.ts'
 
-function windows<T>(arr: T[], size: number = 2): T[][] {
+function windows<T>(xs: T[], size: number = 2): T[][] {
   if (size <= 0) {
     throw new Error('Window size must be positive')
   }
-  if (size > arr.length) {
+  if (size > xs.length) {
     return []
   }
   const result: T[][] = []
-  for (let i = 0; i <= arr.length - size; i++) {
-    result.push(arr.slice(i, i + size))
+  for (let i = 0; i <= xs.length - size; i++) {
+    result.push(xs.slice(i, i + size))
   }
   return result
 }
 
 function isSafe(xs: number[]): boolean {
   const diffs = windows(xs, 2).map(([x, y]) => y - x)
-  if (diffs.some((x) => x === 0)) return false
-  return (diffs.every((x) => x > 0 && x <= 3) || diffs.every((x) => x < 0 && x >= -3))
+  return diffs.every((x) => x > 0 && x <= 3) ||
+    diffs.every((x) => x < 0 && x >= -3)
 }
 
 function part1(reports: number[][]): number {
-  const ys = reports.map(isSafe)
-  return countBy(ys, identity)[true]
+  return reports
+    .map(isSafe)
+    .filter(identity)
+    .length
 }
 
-function removeAtIndex<T>(arr: T[], index: number): T[] {
-  return arr.filter((_, i) => i !== index)
+function removeAtIndex<T>(xs: T[], index: number): T[] {
+  return xs.filter((_, i) => i !== index)
 }
 
 function part2(reports: number[][]) {
-  const unsafeReports = reports
+  return part1(reports) + reports
     .filter((x) => !isSafe(x))
-    .map((x) => {
-      return range(x.length)
+    .map((x) =>
+      range(x.length)
         .map((i) => removeAtIndex(x, i))
         .some(isSafe)
-    })
-  const additional = countBy(unsafeReports, identity)[true]
-  return additional + part1(reports)
+    )
+    .filter(identity)
+    .length
 }
 
 export function runDay() {
