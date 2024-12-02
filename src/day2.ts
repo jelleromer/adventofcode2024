@@ -49,7 +49,7 @@ export function runDay() {
     .split('\n')
     .filter((x) => x !== '')
     .map(findAll(/\d+/g))
-    .map((xs) => xs.map(Number) as number[])
+    .map((xs) => xs.map(Number))
   const one = part1(parsed)
   const two = part2(parsed)
   print(one, two)
