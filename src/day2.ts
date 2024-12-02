@@ -21,8 +21,8 @@ function isSafe(xs: number[]): boolean {
     diffs.every((x) => x < 0 && x >= -3)
 }
 
-function part1(reports: number[][]): number {
-  return reports
+function part1(xss: number[][]): number {
+  return xss
     .map(isSafe)
     .filter(identity)
     .length
@@ -32,8 +32,8 @@ function removeAtIndex<T>(xs: T[], index: number): T[] {
   return xs.filter((_, i) => i !== index)
 }
 
-function part2(reports: number[][]): number {
-  return part1(reports) + reports
+function part2(xss: number[][]): number {
+  return part1(xss) + xss
     .filter((xs) => !isSafe(xs))
     .map((xs) =>
       range(xs.length)
