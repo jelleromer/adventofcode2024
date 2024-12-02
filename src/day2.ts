@@ -1,4 +1,4 @@
-import { identity, range } from '@es-toolkit/es-toolkit'
+import { curry, identity, range } from '@es-toolkit/es-toolkit'
 import { findAll, print } from './utils.ts'
 
 function windows<T>(xs: T[], size: number = 2): T[][] {
@@ -37,7 +37,7 @@ function part2(reports: number[][]): number {
     .filter((xs) => !isSafe(xs))
     .map((xs) =>
       range(xs.length)
-        .map((i) => removeAtIndex(xs, i))
+        .map(curry(removeAtIndex)(xs))
         .some(isSafe)
     )
     .filter(identity)
