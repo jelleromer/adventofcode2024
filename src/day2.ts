@@ -1,4 +1,4 @@
-import { curry, identity, range } from '@es-toolkit/es-toolkit'
+import { curry, identity, negate, range } from '@es-toolkit/es-toolkit'
 import { findAll, print } from './utils.ts'
 
 function windows<T>(xs: T[], size: number = 2): T[][] {
@@ -34,7 +34,7 @@ function removeAtIndex<T>(xs: T[], index: number): T[] {
 
 function part2(xss: number[][]): number {
   return part1(xss) + xss
-    .filter((xs) => !isSafe(xs))
+    .filter(negate(isSafe))
     .map((xs) =>
       range(xs.length)
         .map(curry(removeAtIndex)(xs))
