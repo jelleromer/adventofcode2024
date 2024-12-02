@@ -34,10 +34,10 @@ function removeAtIndex<T>(xs: T[], index: number): T[] {
 
 function part2(reports: number[][]) {
   return part1(reports) + reports
-    .filter((x) => !isSafe(x))
-    .map((x) =>
-      range(x.length)
-        .map((i) => removeAtIndex(x, i))
+    .filter((xs) => !isSafe(xs))
+    .map((xs) =>
+      range(xs.length)
+        .map((i) => removeAtIndex(xs, i))
         .some(isSafe)
     )
     .filter(identity)
@@ -49,7 +49,7 @@ export function runDay() {
     .split('\n')
     .filter((x) => x !== '')
     .map(findAll(/\d+/g))
-    .map((x) => x.map(Number) as number[])
+    .map((xs) => xs.map(Number) as number[])
   const one = part1(parsed)
   const two = part2(parsed)
   print(one, two)
