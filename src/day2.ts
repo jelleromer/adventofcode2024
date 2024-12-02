@@ -32,7 +32,7 @@ function removeAtIndex<T>(xs: T[], index: number): T[] {
   return xs.filter((_, i) => i !== index)
 }
 
-function part2(reports: number[][]) {
+function part2(reports: number[][]): number {
   return part1(reports) + reports
     .filter((xs) => !isSafe(xs))
     .map((xs) =>
