@@ -1,4 +1,4 @@
-import { runDay } from './src/day2.ts'
+import { runDay } from './src/day3.ts'
 
 if (import.meta.main) {
   runDay()
