@@ -34,13 +34,9 @@ export function runDay() {
     .map(findAll(/mul\(\d+\,\d+\)|don't\(\)|do\(\)/g))
     .flatMap((ss) =>
       ss.map((s) => {
-        if (s.startsWith('don')) {
-          return false
-        } else if (s.startsWith('do')) {
-          return true
-        } else {
-          return findAll(/\d+/g)(s).map(Number) as [number, number]
-        }
+        if (s.startsWith('don')) return false
+        if (s.startsWith('do')) return true
+        return findAll(/\d+/g)(s).map(Number) as [number, number]
       })
     )
   const one = part1(parsed1)
