@@ -1,10 +1,9 @@
 import { findAll, print } from './utils.ts'
 
 function part1(xs: string[]) {
-  const y = xs
+  return xs
     .flatMap(findAll(/(?=XMAS|SAMX)/g))
     .length
-  return y
 }
 
 function transposeVertical(xs: string[]) {
@@ -23,7 +22,7 @@ function getDiagonals(xs: string[]) {
   const res = []
 
   // for each row, go down right
-  for (let i = 0; i < xs.length; i++) { // for each row
+  for (let i = 0; i < xs.length; i++) {
     let newStr = ''
     for (let j = 0; i + j < xs.length; j++) {
       newStr += xs[i + j][j]
@@ -85,8 +84,8 @@ function part2(xs: string[]) {
   let res = 0
   for (let i = 1; i < xs.length - 1; i++) {
     for (let j = 1; j < xs[0].length - 1; j++) {
-      if (xs[i][j] == 'A') {
-        if (isXmas(xs, i, j)) res++
+      if (xs[i][j] == 'A' && isXmas(xs, i, j)) {
+        res++
       }
     }
   }
@@ -98,8 +97,10 @@ export function runDay() {
   const parsed = inFile
     .split('\n')
     .filter((x) => x !== '')
-  const allLines = parsed.concat(getDiagonals(parsed)).concat(transposeVertical(parsed))
-  const one = part1(allLines)
+  const allWordSearchDirections = parsed
+    .concat(transposeVertical(parsed))
+    .concat(getDiagonals(parsed))
+  const one = part1(allWordSearchDirections)
   const two = part2(parsed)
   print(one, two)
 }
