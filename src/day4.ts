@@ -2,6 +2,8 @@ import { findAll, print } from './utils.ts'
 
 function part1(xs: string[]) {
   return xs
+    .concat(transposeVertical(xs))
+    .concat(getDiagonals(xs))
     .flatMap(findAll(/(?=XMAS|SAMX)/g))
     .length
 }
@@ -20,7 +22,6 @@ function transposeVertical(xs: string[]) {
 
 function getDiagonals(xs: string[]) {
   const res = []
-
   // for each row, go down right
   for (let i = 0; i < xs.length; i++) {
     let newStr = ''
@@ -29,7 +30,6 @@ function getDiagonals(xs: string[]) {
     }
     res.push(newStr)
   }
-
   // for each column, go down right (skip first to avoid overlap with previous loop)
   for (let i = 1; i < xs[0].length; i++) {
     let newStr = ''
@@ -38,7 +38,6 @@ function getDiagonals(xs: string[]) {
     }
     res.push(newStr)
   }
-
   // start in top-right, for each row, go down left
   for (let i = 0; i < xs.length; i++) {
     let newStr = ''
@@ -48,7 +47,6 @@ function getDiagonals(xs: string[]) {
     }
     res.push(newStr)
   }
-
   // start in top-right, for each column, go down left (skip first to avoid overlap with previous loop)
   for (let i = xs.length - 2; i >= 0; i--) {
     let newStr = ''
@@ -57,7 +55,6 @@ function getDiagonals(xs: string[]) {
     }
     res.push(newStr)
   }
-
   return res
 }
 
@@ -97,10 +94,7 @@ export function runDay() {
   const parsed = inFile
     .split('\n')
     .filter((x) => x !== '')
-  const allWordSearchDirections = parsed
-    .concat(transposeVertical(parsed))
-    .concat(getDiagonals(parsed))
-  const one = part1(allWordSearchDirections)
+  const one = part1(parsed)
   const two = part2(parsed)
   print(one, two)
 }
