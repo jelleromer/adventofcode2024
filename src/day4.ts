@@ -59,22 +59,10 @@ function getDiagonals(xs: string[]) {
 }
 
 function isXmas(grid: string[], i: number, j: number): boolean {
-  const topLeft = grid[i - 1][j - 1]
-  const topRight = grid[i + 1][j - 1]
-  const downLeft = grid[i - 1][j + 1]
-  const downRight = grid[i + 1][j + 1]
-  return (
-    topLeft === topRight &&
-    downLeft === downRight &&
-    (topRight === 'S' && downRight === 'M' ||
-      topRight === 'M' && downRight === 'S')
-  ) ||
-    (
-      topLeft === downLeft &&
-      topRight === downRight &&
-      (topLeft === 'S' && topRight === 'M' ||
-        topLeft === 'M' && topRight === 'S')
-    )
+  const diag1 = grid[i - 1][j - 1] + grid[i + 1][j + 1]
+  const diag2 = grid[i - 1][j + 1] + grid[i + 1][j - 1]
+  return diag1.includes('M') && diag1.includes('S') &&
+    diag2.includes('M') && diag2.includes('S')
 }
 
 function part2(xs: string[]) {
