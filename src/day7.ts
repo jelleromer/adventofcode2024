@@ -33,7 +33,7 @@ function generateCombinations2(length: number): numFunc[][] {
 
 function oneLine(f: genFunc, line: [number, number[]]) {
   const [total, parts] = line
-  const res = f(parts.length - 1)
+  const itsThere = f(parts.length - 1)
     .map((ops) => zip(ops, parts.slice(1)))
     .map((pairs) => {
       return pairs.reduce(
@@ -44,8 +44,8 @@ function oneLine(f: genFunc, line: [number, number[]]) {
         parts[0],
       )
     })
-    .filter((x) => x === total)
-  return res[0] ?? 0
+    .some((x) => x === total)
+  return itsThere ? total : 0
 }
 
 function solve(xs: [number, number[]][], f: genFunc) {
