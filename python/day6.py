@@ -32,26 +32,28 @@ def move(i: int, j: int, direc):
     return (i + dy, j + dx)
 
 def part1(g: list[str]):
-    startI, startJ = [(i, line.index('^')) for i, line in enumerate(g) if '^' in line][0]
+    startI, startJ = 0, 0
+    for i, line in enumerate(g):
+        if '^' in line:
+            startI, startJ = (i, line.index('^'))
+            break
     direction = Dir.Up
 
     i, j = startI, startJ
-    visited = set([(i, j)])
-    visitedDir = set([(i, j, direction)])
+    visited = set([(i, j, direction)])
 
     while True:
         i2, j2 = move(i, j, direction)
-        if (i2, j2, direction) in visitedDir:
-            return -1
+        if (i2, j2, direction) in visited:
+            return None
         if oob(g, i2, j2):
             break
         if bonk(g, i2, j2):
             direction = turn(direction)
         else:
             i, j = i2, j2
-            visited.add((i, j))
-            visitedDir.add((i, j, direction))
-    return len(visited)
+            visited.add((i, j, direction))
+    return set(map(lambda x: (x[0], x[1]), visited))
 
 def setCharAtIndex(ch, s, i):
     return s[:i] + ch + s[i + 1:]
@@ -59,21 +61,21 @@ def setCharAtIndex(ch, s, i):
 def setListAtIndex(ch, s, i):
     return s[:i] + [ch] + s[i + 1:]
 
-def part2(g: list[str]):
+def part2(g: list[str], cells: set[tuple[int, int]]):
     res = 0
-    for i in range(len(g)):
-        for j, x in enumerate(g[i]):
-            if x == '.':
-                newG = setListAtIndex(
-                    setCharAtIndex('#', g[i], j),
-                    g,
-                    i)
-                if part1(newG) == -1:
-                    res += 1
+    for i, j in cells:
+        if g[i][j] == '.':
+            newG = setListAtIndex(
+                setCharAtIndex('#', g[i], j),
+                g,
+                i)
+            if part1(newG) is None:
+                res += 1
     return res
 
 with open('../txt/day6', 'r') as f:
     g = f.read().splitlines()
-    one = part1(g)
-    two = part2(g)
+    cells = part1(g)
+    one = len(cells)
+    two = part2(g, cells)
     print(one, two)
