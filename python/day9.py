@@ -87,8 +87,6 @@ def getFittingGapIndex(fs, fileSize, r) -> int | None:
 def compressFS2(fs: list[int | None]):
     r = len(fs) - 1
     while r > 1:
-        # printFS(fs)
-        # print(f'scanning {r=}')
         while fs[r] is None:
             r -= 1
         fileSize, fileName = countFileSize(fs, r)
