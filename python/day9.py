@@ -39,7 +39,7 @@ def func(a: int, b: tuple[int, int | None]):
     else:
         return a + x * y
 
-def part1(diskMap):
+def part1(diskMap: list[int]):
     blocks = enumerate(compressFS1(constructFS(diskMap)))
     return reduce(func, blocks, 0)
 
@@ -70,7 +70,7 @@ def countFileSize(fs: list[int | None], r: int):
         i += 1
     return i, filename
 
-def getFittingGapIndex(fs, fileSize, r) -> int | None:
+def getFittingGapIndex(fs: list[int | None], fileSize: int, r: int) -> int | None:
     i = 0
     gapSize = 0
     while i < r:
@@ -101,7 +101,7 @@ def compressFS2(fs: list[int | None]):
         r -= 1
     return fs
 
-def part2(diskMap):
+def part2(diskMap: list[int]):
     blocks = enumerate(compressFS2(constructFS(diskMap)))
     return reduce(func, blocks, 0)
 
